@@ -1,13 +1,17 @@
 package rodriguez.manuel.tictactoegame;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,28 +19,27 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AddPlayers extends AppCompatActivity {
 
+    private EditText playerOne, playerTwo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_players);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
-
-        final EditText playerOne = findViewById(R.id.playerOneName);
-        final EditText playerTwo = findViewById(R.id.playerTwoName);
+        playerOne = findViewById(R.id.playerOneName);
+        playerTwo = findViewById(R.id.playerTwoName);
         final Button startGameBtn = findViewById(R.id.startGameButton);
 
 
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String getPlayerOneName = playerOne.getText().toString();
-                final String getPlayerTwoName = playerTwo.getText().toString();
+                final String getPlayerOneName = playerOne.getText().toString().toLowerCase();
+                final String getPlayerTwoName = playerTwo.getText().toString().toLowerCase();
+
+//                savePlayerData(getPlayerOneName, 0);
+//                savePlayerData(getPlayerTwoName, 0);
+
 
                 // Check it has a valid name
                 if(getPlayerOneName.isEmpty() || getPlayerTwoName.isEmpty()){
@@ -50,5 +53,24 @@ public class AddPlayers extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
+//    private void savePlayerData(String playerName, int wins){
+//        SharedPreferences pref = getApplication().getSharedPreferences("GamePreferences",MODE_PRIVATE);
+//        SharedPreferences.Editor editor = pref.edit();
+//
+//        editor.putString(playerName + "_name", playerName);
+//        editor.putInt(playerName + "_wins", wins);
+//        editor.commit();
+//    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("playerOne_name", playerOne.getText().toString());
+        outState.putString("playerTwo_name", playerTwo.getText().toString());
     }
 }
