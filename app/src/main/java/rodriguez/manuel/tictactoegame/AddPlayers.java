@@ -26,8 +26,6 @@ public class AddPlayers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_players);
 
-
-
         playerOne = findViewById(R.id.playerOneName);
         playerTwo = findViewById(R.id.playerTwoName);
         final Button startGameBtn = findViewById(R.id.startGameButton);
@@ -36,11 +34,11 @@ public class AddPlayers extends AppCompatActivity {
         startGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String getPlayerOneName = playerOne.getText().toString();
-                final String getPlayerTwoName = playerTwo.getText().toString();
+                final String getPlayerOneName = playerOne.getText().toString().toLowerCase();
+                final String getPlayerTwoName = playerTwo.getText().toString().toLowerCase();
 
-                savePlayerData(getPlayerOneName, 0);
-                savePlayerData(getPlayerTwoName, 0);
+//                savePlayerData(getPlayerOneName, 0);
+//                savePlayerData(getPlayerTwoName, 0);
 
 
                 // Check it has a valid name
@@ -52,8 +50,6 @@ public class AddPlayers extends AppCompatActivity {
                     intent.putExtra("playerTwo", getPlayerTwoName);
                     startActivity(intent);
                 }
-
-
             }
         });
 
@@ -61,15 +57,14 @@ public class AddPlayers extends AppCompatActivity {
 
 
 
-    private void savePlayerData(String playerName, int wins){
-        SharedPreferences pref = getApplication().getSharedPreferences("GamePreferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-
-        editor.putString(playerName + "_name", playerName);
-        editor.putInt(playerName + "_wins", wins);
-
-        editor.commit();
-    }
+//    private void savePlayerData(String playerName, int wins){
+//        SharedPreferences pref = getApplication().getSharedPreferences("GamePreferences",MODE_PRIVATE);
+//        SharedPreferences.Editor editor = pref.edit();
+//
+//        editor.putString(playerName + "_name", playerName);
+//        editor.putInt(playerName + "_wins", wins);
+//        editor.commit();
+//    }
 
 
     @Override

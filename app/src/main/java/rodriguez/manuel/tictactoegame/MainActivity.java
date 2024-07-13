@@ -1,7 +1,11 @@
 package rodriguez.manuel.tictactoegame;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import rodriguez.manuel.tictactoegame.databinding.ActivityMainBinding;
 
@@ -225,6 +230,9 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.x_letter);
 
             if(checkPlayerWin()){
+                savePlayerScore(playerOneName.getText().toString(), 1);
+                //sendHighScoresToActivity(); // Navigate to HighScoreActivity with the high score
+                // Display the Win Window
                 WinDialog winDialog = new WinDialog(MainActivity.this,
                         playerOneName.getText().toString() + " has won the match",
                         MainActivity.this);
@@ -244,7 +252,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             imageView.setImageResource(R.drawable.o_letter);
+
             if(checkPlayerWin()){
+                savePlayerScore(playerTwoName.getText().toString(), 1);
+                //sendHighScoresToActivity();
                 WinDialog winDialog = new WinDialog(MainActivity.this,
                         playerTwoName.getText().toString() + " has won the match",
                         MainActivity.this);
@@ -309,6 +320,81 @@ public class MainActivity extends AppCompatActivity {
         image8.setImageResource(R.color.dark_blue);
         image9.setImageResource(R.color.dark_blue);
     }
+
+    public void savePlayerScore(String playerName, int point){
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("HighScores", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Find the player in the shared preferences
+        if( sharedPreferences.contains(playerName)){
+            String keyPlayer = sharedPreferences.getString(playerName, null);
+            if(keyPlayer != null){
+                String[] parts = keyPlayer.split(",");
+                int playerScore = Integer.parseInt(parts[1]);
+                Log.d("PlayerScore", "Existing Score: " + playerScore);
+
+                // Add new point to the existing point
+                playerScore += point;
+                editor.putString(playerName, playerName + "," + playerScore);
+            }
+        } else {
+            // Save the new player's name and point
+            editor.putString(playerName, playerName + "," + point );
+        }
+        editor.apply();
+        editor.commit();
+    }
+
+    public List<HighScore> getAllPlayerScore(){
+        SharedPreferences sharedPreferences = getSharedPreferences("HighScores", MODE_PRIVATE);
+        List<HighScore> highScores = new ArrayList<>();
+
+        Map<String, ?> allEntries = sharedPreferences.getAll();
+        for(Map.Entry<String, ? > entry: allEntries.entrySet()){
+            String[] parts = entry.getValue().toString().split(",");
+            String playerName = parts[0];
+            int point = Integer.parseInt((parts[1]));
+            highScores.add(new HighScore(playerName, point));
+        }
+
+        return highScores;
+    }
+
+    public void sendHighScoresToActivity(){
+        List<HighScore> highScores = getAllPlayerScore();
+        Log.d("sendHighScoreToActivity", "" + highScores);
+
+        Intent intent = new Intent(MainActivity.this, HighScoreActivity.class);
+        ArrayList<String> playerNames = new ArrayList<>();
+        ArrayList<Integer> playerScores = new ArrayList<>();
+
+        for(HighScore highScore : highScores){
+            playerNames.add(highScore.getPlayerName());
+            playerScores.add(highScore.getScore());
+        }
+
+        intent.putStringArrayListExtra("playerNames", playerNames);
+        intent.putIntegerArrayListExtra("playerScores", playerScores);
+        Log.d("sendIntent", "" + intent);
+        startActivity(intent);
+
+    }
+
+
+//    public HighScore getPlayerScore(){
+//        SharedPreferences sharedPreferences = getSharedPreferences("HighScores", MODE_PRIVATE);
+//        String highScore = sharedPreferences.getString("highScore",null);
+//        if( highScore != null){
+//            String[] parts = highScore.split(",");
+//            String playerName = parts[0];
+//            int point = Integer.parseInt(parts[1]);
+//            return new HighScore(playerName, point);
+//        }
+//
+//        return null;
+//    }
+
+
 
 
 

@@ -2,6 +2,7 @@ package rodriguez.manuel.tictactoegame;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class WinDialog extends Dialog {
 
         final TextView messageText = findViewById(R.id.messageText);
         final Button startAgainBtn = findViewById(R.id.startAgainBtn);
+        final Button viewHighScoreButton = findViewById(R.id.viewHighScoreButton);
 
         messageText.setText(message);
         startAgainBtn.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +38,17 @@ public class WinDialog extends Dialog {
             public void onClick(View v) {
                 mainActivity.restartMatch();
                 dismiss();
+            }
+        });
+
+        viewHighScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                Intent highScoreBoardIntent = new Intent(mainActivity, HighScoreActivity.class);
+                mainActivity.sendHighScoresToActivity();
+                //mainActivity.startActivity(highScoreBoardIntent);
+
             }
         });
 
