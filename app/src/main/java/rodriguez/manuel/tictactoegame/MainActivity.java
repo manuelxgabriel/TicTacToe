@@ -486,21 +486,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public HighScore getPlayerScore(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("HighScores", MODE_PRIVATE);
-//        String highScore = sharedPreferences.getString("highScore",null);
-//        if( highScore != null){
-//            String[] parts = highScore.split(",");
-//            String playerName = parts[0];
-//            int point = Integer.parseInt(parts[1]);
-//            return new HighScore(playerName, point);
-//        }
-//
-//        return null;
-//    }
-
-
-
-
-
 }

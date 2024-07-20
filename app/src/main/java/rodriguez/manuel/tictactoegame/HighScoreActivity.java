@@ -14,6 +14,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Activity to display the high scores of the players.
+ */
 public class HighScoreActivity extends AppCompatActivity {
 
     @Override

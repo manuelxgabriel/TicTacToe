@@ -20,7 +20,19 @@ import androidx.core.view.WindowInsetsCompat;
 public class AddPlayers extends AppCompatActivity {
 
     private EditText playerOne, playerTwo;
+    private String getPlayerOneName = "playerOne";
+    private String getPlayerTwoName = "playerTwo";
 
+    Button startGameBtn;
+
+    /**
+     * Called when the activity is starting. This is where most initialization should go.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,18 +40,20 @@ public class AddPlayers extends AppCompatActivity {
 
         playerOne = findViewById(R.id.playerOneName);
         playerTwo = findViewById(R.id.playerTwoName);
-        final Button startGameBtn = findViewById(R.id.startGameButton);
+        startGameBtn = findViewById(R.id.startGameButton);
 
 
         startGameBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when the start game button is clicked. Validates the player names
+             * and starts the MainActivity.
+             *
+             * @param v The view that was clicked.
+             */
             @Override
             public void onClick(View v) {
-                final String getPlayerOneName = playerOne.getText().toString().toLowerCase();
-                final String getPlayerTwoName = playerTwo.getText().toString().toLowerCase();
-
-//                savePlayerData(getPlayerOneName, 0);
-//                savePlayerData(getPlayerTwoName, 0);
-
+                getPlayerOneName = playerOne.getText().toString().toLowerCase();
+                getPlayerTwoName = playerTwo.getText().toString().toLowerCase();
 
                 // Check it has a valid name
                 if(getPlayerOneName.isEmpty() || getPlayerTwoName.isEmpty()){
@@ -55,18 +69,13 @@ public class AddPlayers extends AppCompatActivity {
 
     }
 
-
-
-//    private void savePlayerData(String playerName, int wins){
-//        SharedPreferences pref = getApplication().getSharedPreferences("GamePreferences",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = pref.edit();
-//
-//        editor.putString(playerName + "_name", playerName);
-//        editor.putInt(playerName + "_wins", wins);
-//        editor.commit();
-//    }
-
-
+    /**
+     * Called to retrieve per-instance from an activity before being killed
+     * so that the state can be restored in onCreate(Bundle)
+     *
+     * @param outState Bundle in which to place your saved state.
+     *
+     */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
