@@ -3,6 +3,8 @@ package rodriguez.manuel.tictactoegame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ public class HighScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score);
 
         ListView listView = findViewById(R.id.listViewHighScores);
+        Button buttonRestartGame = findViewById(R.id.buttonRestartGame);
 
         // Get the data from the intent
         Intent intent = getIntent();
@@ -49,5 +52,23 @@ public class HighScoreActivity extends AppCompatActivity {
         } else {
             Log.e("HighScoreActivity", "playerNames or playerScores is null");
         }
+
+
+        // Set restart button
+        buttonRestartGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent restartIntent = new Intent(HighScoreActivity.this, AddPlayers.class);
+                restartIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Pass player names back to MainActivity
+                restartIntent.putStringArrayListExtra("playerNames", playerNames);
+
+                startActivity(restartIntent);
+                finish(); // Finish HighScoreActivity to remove it from the back stack
+            }
+        });
+
+
     }
 }
