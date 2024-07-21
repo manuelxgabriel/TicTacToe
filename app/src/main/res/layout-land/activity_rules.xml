@@ -11,11 +11,12 @@
     <!-- Title Section -->
 
     <!-- Rules Content Section -->
+
     <LinearLayout
         android:id="@+id/rulesTitleLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="288dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/round_back_dark_blue"
         android:gravity="center"
         android:orientation="vertical"
