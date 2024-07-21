@@ -4,4 +4,26 @@
     <string name="player_two">Player Two</string>
     <string name="start_game">Start Game</string>
     <string name="player_name">Enter Player Name</string>
+    <string name="high_score_title">High Score</string>
+    <string name="rules_title">Rules</string>
+    <string name="rules">
+        <b>Tic Tac Toe Rules:</b>
+        <br /><br />
+        1. <b>Objective:</b> The objective of Tic Tac Toe is to be the first player to get three of your marks in a row, either horizontally, vertically, or diagonally.
+        <br /><br />
+        2. <b>Players:</b> The game is played between two players. One player uses X and the other uses O.
+        <br /><br />
+        3. <b>Game Board:</b> The game is played on a 3x3 grid. Each cell in the grid can be empty, contain an X, or contain an O.
+        <br /><br />
+        4. <b>Turn Order:</b> Players take turns placing their mark (X or O) on an empty cell of the grid.
+        <br /><br />
+        5. <b>Winning:</b> The first player to place three of their marks in a row (horizontally, vertically, or diagonally) wins the game.
+        <br /><br />
+        6. <b>Draw:</b> If all cells are filled and no player has three marks in a row, the game ends in a draw.
+        <br /><br />
+        7. <b>Starting a New Game:</b> To start a new game, reset the grid and alternate who goes first.
+        <br /><br />
+        <b>Enjoy playing Tic Tac Toe!</b>
+    </string>
+    <string name="settings_title">Game Settings</string>
 </resources>

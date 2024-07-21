@@ -18,7 +18,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Message Here"
+            android:text="@string/settings_title"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/round_back_blue1000"
-            android:text="Start Again"
+            android:text="@string/start_game"
         />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -39,7 +39,16 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/round_back_blue1000"
-            android:text="High Score"
+            android:text="@string/high_score_title"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rulesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_back_blue1000"
+            android:text="Rules"
             />
 
 
